@@ -26,6 +26,8 @@ public class User {
 
     private String fullName;
 
+    private Double walletBalance;
+
     private String role = "USER"; // Default role
 }
 

@@ -1,9 +1,10 @@
-package com.example.horsebettingbackend.service;
+package com.example.back_end.service;
 
+import com.example.back_end.model.UserLoginDTO;
+import com.example.back_end.model.UserRegistrationDTO;
+import com.example.back_end.repository.UserRepository;
 import com.example.horsebettingbackend.model.User;
-import com.example.horsebettingbackend.model.UserLoginDTO;
-import com.example.horsebettingbackend.model.UserRegistrationDTO;
-import com.example.horsebettingbackend.repository.UserRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

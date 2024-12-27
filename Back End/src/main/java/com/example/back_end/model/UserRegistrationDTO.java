@@ -1,4 +1,4 @@
-package com.example.horsebettingbackend.model;
+package com.example.back_end.model;
 
 import lombok.Data;
 

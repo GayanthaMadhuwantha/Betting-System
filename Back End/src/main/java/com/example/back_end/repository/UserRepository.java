@@ -1,4 +1,4 @@
-package com.example.horsebettingbackend.repository;
+package com.example.back_end.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import com.example.horsebettingbackend.model.User;

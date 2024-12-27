@@ -1,4 +1,4 @@
-package com.example.horsebettingbackend.configuration;
+package com.example.back_end.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
