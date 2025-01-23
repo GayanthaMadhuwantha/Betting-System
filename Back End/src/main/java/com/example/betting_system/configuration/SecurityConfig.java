@@ -23,7 +23,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable) // Disable CSRF
-                .formLogin(form -> form.loginPage("/login").permitAll()) // Enable form-based login
+                .formLogin(form -> form.disable())
                 .httpBasic(AbstractHttpConfigurer::disable) // Disable HTTP Basic authentication
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/register", "/api/auth/login").permitAll() // Allow public access to registration/login
