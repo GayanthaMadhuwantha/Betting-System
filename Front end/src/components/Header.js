@@ -1,5 +1,5 @@
 import React,{ useState, useEffect } from 'react';
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Header = ({ isLoggedIn, handleLogout }) => {
 
@@ -37,7 +37,7 @@ const Header = ({ isLoggedIn, handleLogout }) => {
                         className="me-3"
                         style={{ width: '40px', height: '40px' }}
                     />
-                    <h1 className="text-white fs-4 mb-0">Betting App</h1>
+                    <h1 className="text-white fs-4 mb-0" ><a href="/" className="nav-link text-white">Betting App</a></h1>
                 </div>
 
                 {/* Navigation */}

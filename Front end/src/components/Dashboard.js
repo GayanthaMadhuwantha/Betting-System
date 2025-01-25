@@ -7,8 +7,11 @@ const DashboardLayout = ({ setIsLoggedIn }) => {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-    if (!token || setIsLoggedIn === false) {
+    if (!token || !setIsLoggedIn) {
       navigate('/login');
+    }
+    else{
+      setIsLoggedIn(true);
     }
   }, []);
 

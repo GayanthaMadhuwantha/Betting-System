@@ -14,6 +14,8 @@ import AdminLogin from './components/AdminLogin';
 import AdminDashboard from './components/AdminDashboard';
 import LiveMatches from './components/LiveMatches';
 import MatchForm from './components/MatchForm';
+import NoticeManager from './components/NoticeManager';
+import CookieConsent from "react-cookie-consent";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -49,8 +51,27 @@ function App() {
         <Route path="/admin/dashboard" element={<AdminDashboard setIsLoggedIn={setIsLoggedIn} />} />
         <Route path="/live-matches" element={<LiveMatches />} />
         <Route path="/admin/matches" element={<MatchForm setIsLoggedIn={setIsLoggedIn} />} />
+        <Route path="/notices" element={<NoticeManager isAdmin={true} setIsLoggedIn={setIsLoggedIn} />} />
+      
         <Route path="*" element={<div className='text-center fs-2 text-primary mt-5'>404 - Page Not Found</div>} />
       </Routes>
+      <CookieConsent
+                location="bottom"
+                buttonText="I accept"
+                declineButtonText="I decline"
+                onAccept={() => {
+                    console.log("Cookies accepted");
+                }}
+                onDecline={() => {
+                    console.log("Cookies declined");
+                }}
+                cookieName="myAwesomeCookieName"
+                style={{ background: "#2B373B" }}
+                buttonStyle={{ color: "#4e503b", fontSize: "13px" }}
+                declineButtonStyle={{ color: "#fff", fontSize: "13px" }}
+            >
+                This website uses cookies to enhance the user experience.
+            </CookieConsent>
       <Footer />
     </Router>
   );

@@ -9,15 +9,18 @@ const HomePage = (setIsLoggedIn) => {
 
     const handleSignUpClick = () => {
         const token = localStorage.getItem('token');
-        if (!token || setIsLoggedIn === false) {
+        if (!token && !setIsLoggedIn) {
             navigate("/register");
             return;
         }
         else {
-            if (localStorage.getItem('role') === "admin")
+            if (localStorage.getItem('adminToken')){
                 navigate("/admin/dashboard")
+            setIsLoggedIn(true)
+        }
             else
                 navigate("/dashboard")
+            setIsLoggedIn(true)
         }
     };
     return (

@@ -7,8 +7,11 @@ const MatchForm = ({ setIsLoggedIn ,match, onFormSubmit }) => {
 const navigate=useNavigate;
    useEffect(() => {
           const token = localStorage.getItem('adminToken');
-          if (!token || setIsLoggedIn === false) {
+          if (!token ) {
               navigate('/admin/login');
+          }
+          else{
+            setIsLoggedIn(true)
           }
       }, []);
   const isEditMode = !!match;

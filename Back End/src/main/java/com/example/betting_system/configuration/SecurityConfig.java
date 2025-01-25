@@ -27,8 +27,8 @@ public class SecurityConfig {
                 .formLogin(form -> form.disable())
                 .httpBasic(AbstractHttpConfigurer::disable) // Disable HTTP Basic authentication
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/register", "/api/auth/login", "/api/admin/login","/api/live-matches/**").permitAll() // Allow public access to registration/login
-                        .requestMatchers("/api/live-matches", "/api/live-matches/**").hasRole("ADMIN")
+                        .requestMatchers("/api/auth/register", "/api/auth/login", "/api/admin/login","/api/live-matches/**","/api/notices").permitAll() // Allow public access to registration/login
+                        .requestMatchers("/api/live-matches","/api/notices", "/api/live-matches/**").hasRole("ADMIN")
                         .anyRequest().authenticated() // Secure all other routes
                 );
 
