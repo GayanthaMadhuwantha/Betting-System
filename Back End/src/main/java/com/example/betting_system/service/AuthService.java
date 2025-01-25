@@ -14,8 +14,6 @@ public class AuthService {
     @Autowired
     private UserRepository userRepository;
 
-/*@Autowired
-    public BCryptPasswordEncoder passwordEncoder;*/
 
     @Autowired
     private JwtTokenUtil jwtTokenUtil;

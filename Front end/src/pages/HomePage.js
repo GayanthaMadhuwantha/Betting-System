@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate,Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const HomePage = (setIsLoggedIn) => {
     const navigate = useNavigate();
@@ -8,13 +8,16 @@ const HomePage = (setIsLoggedIn) => {
 
 
     const handleSignUpClick = () => {
-         const token = localStorage.getItem('token');
-        if (!token ) {
-          navigate("/register");
-          return;
+        const token = localStorage.getItem('token');
+        if (!token || setIsLoggedIn === false) {
+            navigate("/register");
+            return;
         }
-        else{
-            navigate("/dashboard")
+        else {
+            if (localStorage.getItem('role') === "admin")
+                navigate("/admin/dashboard")
+            else
+                navigate("/dashboard")
         }
     };
     return (
@@ -34,7 +37,7 @@ const HomePage = (setIsLoggedIn) => {
                         </div>
                         <div className="col-md-6 text-center">
                             <img
-                            src="/images/pngegg.png"
+                                src="/images/pngegg.png"
                                 alt="Betting Website"
                                 className="img-fluid"
                             />
@@ -44,7 +47,7 @@ const HomePage = (setIsLoggedIn) => {
             </header>
 
             {/* Features Section */}
-            <section className="py-5">
+            <section className="py-5 bg-primary">
                 <div className="container">
                     <div className="row g-4">
                         <div className="col-md-4">
@@ -91,11 +94,7 @@ const HomePage = (setIsLoggedIn) => {
             </section>
 
             {/* Footer Section */}
-            <footer className="bg-dark text-white py-3">
-                <div className="container text-center">
-                    <p className="mb-0">&copy; 2023 Betting Website. All rights reserved.</p>
-                </div>
-            </footer>
+
         </div>
     );
 };

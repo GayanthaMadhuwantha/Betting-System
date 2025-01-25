@@ -33,12 +33,12 @@ public class GoogleTokenVerifier {
         GoogleIdToken.Payload payload = idToken.getPayload();
 
         // Extract user details
-        String userId = payload.getSubject();
+        long id = Long.parseLong(payload.getSubject());
         String email = payload.getEmail();
         boolean emailVerified = payload.getEmailVerified();
         String name = (String) payload.get("name");
         String pictureUrl = (String) payload.get("picture");
 
-        return new GoogleUser(userId, email, emailVerified, name, pictureUrl);
+        return new GoogleUser(id, email, emailVerified, name, pictureUrl);
     }
 }

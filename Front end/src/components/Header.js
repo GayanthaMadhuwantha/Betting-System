@@ -1,5 +1,5 @@
 import React,{ useState, useEffect } from 'react';
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Header = ({ isLoggedIn, handleLogout }) => {
 
@@ -28,9 +28,9 @@ const Header = ({ isLoggedIn, handleLogout }) => {
 
     return (
         <header className="bg-primary py-3">
-            <div className="container d-flex align-items-center justify-content-between">
+            <div className="container d-flex align-items-center justify-content-between flex-wrap">
                 {/* Logo */}
-                <div className="d-flex align-items-center">
+                <div className="d-flex align-items-center mb-2 mb-md-0">
                     <img
                         src="/images/pngegg.png"
                         alt="Betting App Logo"
@@ -41,8 +41,8 @@ const Header = ({ isLoggedIn, handleLogout }) => {
                 </div>
 
                 {/* Navigation */}
-                <nav>
-                    <ul className="nav">
+                <nav className="mb-2 mb-md-0">
+                    <ul className="nav flex-column flex-md-row">
                         <li className="nav-item">
                             <a href="/" className="nav-link text-white">
                                 Home
@@ -67,17 +67,14 @@ const Header = ({ isLoggedIn, handleLogout }) => {
                 </nav>
 
                 {!isLoggedIn ? (
-                    <>
-                        <button className="btn btn-light text-primary fw-bold" onClick={handleLoginClick}>Login</button>
+                    <div className="d-flex">
+                        <button className="btn btn-light text-primary fw-bold me-2" onClick={handleLoginClick}>Login</button>
                         <button className="btn btn-light text-primary fw-bold" onClick={handleSignUpClick}>Sign Up</button>
-                    </>
+                    </div>
                 ) : (
-                    <>
-                            <button className="btn btn-light text-primary fw-bold" onClick={handleLogout}>
-                            Hi {user?.name || 'User'}
-                            </button>
-                        
-                    </>
+                    <button className="btn btn-light text-primary fw-bold" onClick={handleLogout}>
+                        Hi {user?.name || 'User'}
+                    </button>
                 )}
             </div>
         </header>

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigDecimal;
 import java.util.Map;
 
 @RestController
@@ -29,6 +30,9 @@ public class AuthController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private JwtTokenUtil jwtTokenUtil;
+
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody User user) {
         try {
@@ -42,9 +46,13 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody User user) {
         try {
-            // Authenticate the user (implement this in your service)
+            User existingUser = authService.findByUsername(user.getUsername());
+
+            // Ensure the user has a Standared role
+            if (!existingUser.getRole().equals(User.Role.USER)) {
+                throw new Exception("Access denied: Not an a USER");
+            }
             String token = authService.login(user);
-            System.out.println(token);
             // Example response with user details and token
             return ResponseEntity.ok().body(Map.of(
                     "token", token,
@@ -56,9 +64,6 @@ public class AuthController {
         }
     }
 
-
-    @Autowired
-    private JwtTokenUtil jwtTokenUtil;
 
     @PostMapping("/google")
     public ResponseEntity<?> googleSignIn(@RequestBody Map<String, String> request) {
@@ -73,6 +78,7 @@ public class AuthController {
                         User newUser = new User();
                         newUser.setEmail(googleUser.getEmail());
                         newUser.setUsername(googleUser.getName());
+                        newUser.setBalance(BigDecimal.ZERO);
                         userRepository.save(newUser);
                         return newUser;
                     });
@@ -82,35 +88,12 @@ public class AuthController {
 
             return ResponseEntity.ok(Map.of("token", token, "user", user));
         } catch (Exception e) {
+            System.out.println(("Login error: {}" + e.getMessage()));
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid Google token");
         }
     }
 
-    @RestController
-    @RequestMapping("/api/admin")
-    public class AdminAuthController {
 
-        @Autowired
-        private AuthService authService;
-
-        @PostMapping("/login")
-        public ResponseEntity<?> adminLogin(@RequestBody User user) {
-            try {
-                User existingUser = authService.findByUsername(user.getUsername());
-
-                // Ensure the user has an ADMIN role
-                if (!existingUser.getRole().equals(User.Role.ADMIN)) {
-                    throw new Exception("Access denied: Not an admin");
-                }
-
-                // Validate password and generate token
-                String token = authService.login(user);
-                return ResponseEntity.ok(Map.of("token", token, "user", existingUser));
-            } catch (Exception e) {
-                return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Login failed: " + e.getMessage());
-            }
-        }
-    }
 
 }
 

@@ -1,5 +1,6 @@
 package com.example.betting_system.repository;
 
+import com.example.betting_system.model.GoogleUser;
 import com.example.betting_system.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 

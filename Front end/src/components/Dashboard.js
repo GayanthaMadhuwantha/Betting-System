@@ -1,15 +1,24 @@
-import React from 'react';
+import React,{ useState, useEffect } from 'react';
 import { Outlet, Link, useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const DashboardLayout = ({ setIsLoggedIn }) => {
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token || setIsLoggedIn === false) {
+      navigate('/login');
+    }
+  }, []);
+
   const handleLogout = () => {
     localStorage.removeItem('token');
     setIsLoggedIn(false);
     navigate('/login');
   };
+
+
 
   return (
     <div className="container-fluid">

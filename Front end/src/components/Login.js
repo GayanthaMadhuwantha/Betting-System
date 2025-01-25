@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useGoogleLogin } from '@react-oauth/google';
 
 const Login = ({ setIsLoggedIn }) => {
     const [username, setUsername] = useState('');
@@ -29,6 +30,29 @@ const Login = ({ setIsLoggedIn }) => {
             
         }
     };
+
+    const handleGoogleLogin = useGoogleLogin({
+        onSuccess: async (tokenResponse) => {
+          try {
+            // Exchange Google access token for your backend token
+            const response = await axios.post("http://localhost:8080/api/auth/google", {
+              token: tokenResponse.access_token,
+            });
+    
+            // Store token and user info in localStorage
+            localStorage.setItem("token", response.data.token);
+            localStorage.setItem("user", JSON.stringify(response.data.user));
+    
+            // Redirect to dashboard
+            navigate("/dashboard");
+          } catch (error) {
+            console.error("Error during Google sign-in:", error);
+          }
+        },
+        onError: (error) => {
+          console.error("Google Sign-In Error:", error);
+        },
+      });
     
     
     
@@ -65,17 +89,19 @@ const Login = ({ setIsLoggedIn }) => {
                                     />
                                 </div>
                                 <button className="btn btn-primary w-100" onClick={handleLogin}>Login</button>
-                                <div className="mb-3">
+                                <div className="mb-4">
                                     <h6 className="text-center text-primary mt-2">or</h6>
 
-                                    <button className="btn btn-light w-100 d-flex align-items-center justify-content-center">
+                                    <button onClick={handleGoogleLogin} className="btn btn-light w-100 d-flex align-items-center justify-content-center">
                                         <img
                                             src="https://upload.wikimedia.org/wikipedia/commons/archive/c/c1/20210618182605%21Google_%22G%22_logo.svg"
                                             alt="Google Logo"
                                             style={{ width: '20px', height: '20px', marginRight: '10px' }}
                                         />
                                         Continue with Google
+                                        
                                     </button>
+                                    <p className="text-center mt-3">Don't have an account? <a href="/register" className="text-center mt-5" >Sign Up</a></p>
                                 </div>
                             </form>
                         </div>

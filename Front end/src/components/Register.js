@@ -111,9 +111,9 @@ const Register = ({ setIsLoggedIn }) => {
                                 />
                                 {errors.password && <div className="text-danger">{errors.password}</div>}
                             </div>
-                            <div class="form-check  text-center mt-2">
-                                <input class="form-check-input justify-content-center text-center" type="checkbox" value="" id="flexCheckDefault" />
-                                <label class="form-check-label" for="flexCheckDefault">
+                            <div class="form-check text-center mt-2">
+                                <input class="form-check-input justify-content-center text-center me-2 " type="checkbox" value="" id="flexCheckDefault" />
+                                <label class="" >
                                     By signing up, you agree to our <a href='/terms'>Terms & Conditions</a>.
                                 </label>
                             </div>
