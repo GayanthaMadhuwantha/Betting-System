@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useGoogleLogin } from '@react-oauth/google';
@@ -10,7 +10,22 @@ const Register = ({ setIsLoggedIn }) => {
         password: ''
     });
     const [errors, setErrors] = useState({});
+    const [passwordStrength, setPasswordStrength] = useState(0);
+    const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        setPasswordStrength(calculateStrength(form.password));
+    }, [form.password]);
+
+    const calculateStrength = (password) => {
+        let strength = 0;
+        if (password.length >= 8) strength += 1;
+        if (password.match(/[A-Z]/)) strength += 1;
+        if (password.match(/[0-9]/)) strength += 1;
+        if (password.match(/[^A-Za-z0-9]/)) strength += 1;
+        return strength;
+    };
 
     const validate = () => {
         const errors = {};
@@ -23,6 +38,13 @@ const Register = ({ setIsLoggedIn }) => {
         if (!form.password) errors.password = 'Password is required';
         return errors;
     };
+
+    const validateEmail=()=>{
+        if (!/\S+@\S+\.\S+/.test(form.email)) {
+            errors.email = 'Email is invalid';
+        }
+
+    }
 
 
       
@@ -98,21 +120,51 @@ const Register = ({ setIsLoggedIn }) => {
                                     className="form-control"
                                     placeholder="Enter your email"
                                     onChange={(e) => setForm({ ...form, email: e.target.value })}
+                                    
                                 />
                                 {errors.email && <div className="text-danger">{errors.email}</div>}
                             </div>
                             <div className="mb-3">
+                            
                                 <label className="form-label">Password</label>
-                                <input
+                                <div className="input-group"><input
                                     type="password"
                                     className="form-control"
                                     placeholder="Enter your password"
                                     onChange={(e) => setForm({ ...form, password: e.target.value })}
                                 />
+                                <button
+                                            type="button"
+                                            className="btn btn-outline-secondary"
+                                            
+                                            aria-label="Toggle password visibility"
+                                        >
+                                            {showPassword ? (
+                                                <i className="bi bi-eye-slash"></i>
+                                            ) : (
+                                                <i className="bi bi-eye"></i>
+                                            )}
+                                        </button></div>
+                                <div className="progress mt-2" style={{ height: "5px" }}>
+                                            <div 
+                                                className={`progress-bar ${
+                                                    passwordStrength === 0 ? 'bg-danger' :
+                                                    passwordStrength < 3 ? 'bg-warning' : 'bg-success'
+                                                }`} 
+                                                role="progressbar" 
+                                                style={{ width: `${(passwordStrength/4)*100}%` }}
+                                                aria-valuenow={passwordStrength}
+                                                aria-valuemin="0"
+                                                aria-valuemax="4"
+                                            />
+                                        </div>
+                                 <small className="text-muted">
+                                            Password strength: {['Weak', 'Fair', 'Good', 'Strong'][passwordStrength - 1] || 'Very Weak'}
+                                        </small>
                                 {errors.password && <div className="text-danger">{errors.password}</div>}
                             </div>
-                            <div class="form-check text-center mt-2">
-                                <input class="form-check-input justify-content-center text-center me-2 " type="checkbox" value="" id="flexCheckDefault" />
+                            <div class="form-check mt-2">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required />
                                 <label class="" >
                                     By signing up, you agree to our <a href='/terms'>Terms & Conditions</a>.
                                 </label>

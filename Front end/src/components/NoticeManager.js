@@ -108,17 +108,17 @@ const NoticeManager = ({ isAdmin , setIsLoggedIn}) => {
   
 
   return (
-    <div className="container mt-4">
+    <div className="container mt-4  ">
       <h2 className="text-center">Notices</h2>
-
-      {(isAdmin) && (
+     
+      {isAdmin && ( <div className="col-md-7">
         <div className="mt-4">
-          <h4>{editingNotice ? "Edit Notice" : "Create Notice"}</h4>
+          <h4 className="text-primary">{editingNotice ? "Edit Notice" : "Create Notice"}</h4>
           {successMessage && <div className="alert alert-success">{successMessage}</div>}
           {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
           <form onSubmit={handleSubmit}>
             <div className="form-group">
-              <label>Title</label>
+              <label><h6>Title</h6></label>
               <input
                 type="text"
                 className="form-control"
@@ -129,7 +129,7 @@ const NoticeManager = ({ isAdmin , setIsLoggedIn}) => {
               />
             </div>
             <div className="form-group mt-2">
-              <label>Description</label>
+              <label><h6>Description</h6></label>
               <textarea
                 className="form-control"
                 name="description"
@@ -139,7 +139,7 @@ const NoticeManager = ({ isAdmin , setIsLoggedIn}) => {
               />
             </div>
             <div className="form-group mt-2">
-              <label>File</label>
+              <label><h6>File</h6></label>
               <input
                 type="file"
                 className="form-control"
@@ -164,15 +164,16 @@ const NoticeManager = ({ isAdmin , setIsLoggedIn}) => {
             )}
           </form>
         </div>
+        </div>
       )}
 
-      <div className="mt-5">
-        <h4>All Notices</h4>
+      <div className="mt-5"><hr></hr>
+        <h4 className="text-primary">All Notices</h4>
         <table className="table table-striped">
           <thead>
             <tr>
               <th>Title</th>
-              <th>Description</th>
+              <th className="col-md-6">Description</th>
               <th>File</th>
               {isAdmin && <th>Actions</th>}
             </tr>

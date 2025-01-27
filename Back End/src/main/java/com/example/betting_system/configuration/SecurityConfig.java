@@ -1,9 +1,7 @@
 package com.example.betting_system.configuration;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -27,7 +25,7 @@ public class SecurityConfig {
                 .formLogin(form -> form.disable())
                 .httpBasic(AbstractHttpConfigurer::disable) // Disable HTTP Basic authentication
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/register", "/api/auth/login", "/api/admin/login","/api/live-matches/**","/api/notices").permitAll() // Allow public access to registration/login
+                        .requestMatchers("/api/auth/register", "/api/auth/login", "/api/admin/login","/api/live-matches/**","/api/notices","/api/deposits/**").permitAll() // Allow public access to registration/login
                         .requestMatchers("/api/live-matches","/api/notices", "/api/live-matches/**").hasRole("ADMIN")
                         .anyRequest().authenticated() // Secure all other routes
                 );

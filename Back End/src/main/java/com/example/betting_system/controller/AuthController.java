@@ -48,22 +48,22 @@ public class AuthController {
         try {
             User existingUser = authService.findByUsername(user.getUsername());
 
-            // Ensure the user has a Standared role
             if (!existingUser.getRole().equals(User.Role.USER)) {
-                throw new Exception("Access denied: Not an a USER");
+                throw new Exception("Access denied: Not a USER");
             }
             String token = authService.login(user);
-            // Example response with user details and token
+            System.out.println("Token " + token);
+
+            // Return the user object from the database with the fully populated fields
             return ResponseEntity.ok().body(Map.of(
                     "token", token,
-                    "user", user
+                    "user", existingUser  // Ensure you're returning the fully populated user
             ));
         } catch (Exception e) {
-            System.out.println(("Login error: {}"+ e.getMessage()));
+            System.out.println(("Login error: {}" + e.getMessage()));
             return ResponseEntity.badRequest().body("Login failed: " + e.getMessage());
         }
     }
-
 
     @PostMapping("/google")
     public ResponseEntity<?> googleSignIn(@RequestBody Map<String, String> request) {

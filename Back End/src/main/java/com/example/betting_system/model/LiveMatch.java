@@ -1,12 +1,129 @@
 package com.example.betting_system.model;
 
 import jakarta.persistence.*;
-import lombok.Data;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-@Data
+@Entity
+@Table(name = "live_matches")
+public class LiveMatch {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "team_a", nullable = false)
+    private String teamA;
+
+    @Column(name = "team_b", nullable = false)
+    private String teamB;
+
+    @Column(name = "match_time", nullable = false)
+    private LocalDateTime matchTime;
+
+    @Column(name = "status", nullable = false)
+    private String status; // "SCHEDULED", "ONGOING", or "COMPLETED"
+
+    @Column(name = "odds_team_a", nullable = false)
+    private BigDecimal oddsTeamA;
+
+    @Column(name = "odds_team_b", nullable = false)
+    private BigDecimal oddsTeamB;
+
+    @Column(name = "odds_draw", nullable = false)
+    private BigDecimal oddsDraw;
+
+    @Column(name = "created_at", nullable = false)
+    private LocalDateTime createdAt = LocalDateTime.now();
+
+    @Column(name = "updated_at", nullable = false)
+    private LocalDateTime updatedAt = LocalDateTime.now();
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getTeamA() {
+        return teamA;
+    }
+
+    public void setTeamA(String teamA) {
+        this.teamA = teamA;
+    }
+
+    public String getTeamB() {
+        return teamB;
+    }
+
+    public void setTeamB(String teamB) {
+        this.teamB = teamB;
+    }
+
+    public LocalDateTime getMatchTime() {
+        return matchTime;
+    }
+
+    public void setMatchTime(LocalDateTime matchTime) {
+        this.matchTime = matchTime;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public BigDecimal getOddsTeamA() {
+        return oddsTeamA;
+    }
+
+    public void setOddsTeamA(BigDecimal oddsTeamA) {
+        this.oddsTeamA = oddsTeamA;
+    }
+
+    public BigDecimal getOddsTeamB() {
+        return oddsTeamB;
+    }
+
+    public void setOddsTeamB(BigDecimal oddsTeamB) {
+        this.oddsTeamB = oddsTeamB;
+    }
+
+    public BigDecimal getOddsDraw() {
+        return oddsDraw;
+    }
+
+    public void setOddsDraw(BigDecimal oddsDraw) {
+        this.oddsDraw = oddsDraw;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    // Getters and setters
+}
+
+/*@Data
 @Entity
 @Table(name = "live_matches")
 public class LiveMatch {
@@ -157,4 +274,4 @@ public class LiveMatch {
     protected void onUpdate() {
         updatedAt = LocalDateTime.now();
     }
-}
+}*/

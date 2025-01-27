@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import "bootstrap-icons/font/bootstrap-icons.css";
+
 import Login from "./components/Login";
 import HomePage from './pages/HomePage';
 import Header from './components/Header';
@@ -16,6 +18,8 @@ import LiveMatches from './components/LiveMatches';
 import MatchForm from './components/MatchForm';
 import NoticeManager from './components/NoticeManager';
 import CookieConsent from "react-cookie-consent";
+import PlaceBet from './components/PlaceBet';
+import DepositForm from './components/DepositForm';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -52,6 +56,8 @@ function App() {
         <Route path="/live-matches" element={<LiveMatches />} />
         <Route path="/admin/matches" element={<MatchForm setIsLoggedIn={setIsLoggedIn} />} />
         <Route path="/notices" element={<NoticeManager isAdmin={true} setIsLoggedIn={setIsLoggedIn} />} />
+        <Route path="/place-bet" element={<PlaceBet setIsLoggedIn={setIsLoggedIn} />} />
+        <Route path="/deposit" element={<DepositForm setIsLoggedIn={setIsLoggedIn} />} />
       
         <Route path="*" element={<div className='text-center fs-2 text-primary mt-5'>404 - Page Not Found</div>} />
       </Routes>

@@ -49,6 +49,7 @@ public class LiveMatchController {
 
     @GetMapping("/all")
     public ResponseEntity<List<LiveMatch>> getAllMatches() {
+
         return ResponseEntity.ok(liveMatchService.getAllMatches());
     }
 }

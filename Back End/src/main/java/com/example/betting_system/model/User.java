@@ -12,6 +12,10 @@ import java.math.BigDecimal;
 @Table(name = "users")
 public class User {
 
+    public User(Long userId) {
+        this.id=userId;
+    }
+
     public enum Role {
         USER,
         ADMIN

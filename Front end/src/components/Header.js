@@ -72,9 +72,11 @@ const Header = ({ isLoggedIn, handleLogout }) => {
                         <button className="btn btn-light text-primary fw-bold" onClick={handleSignUpClick}>Sign Up</button>
                     </div>
                 ) : (
-                    <button className="btn btn-light text-primary fw-bold" onClick={handleLogout}>
-                        Hi {user?.name || 'User'}
-                    </button>
+                    <><h5 className="text-white fw-bold m" >
+                                Balnce {user?.balance || '0.00'}
+                            </h5><h5 className="text-white" onClick={handleLogout}>
+                            Hi {user?.username || 'User'}
+                        </h5></>
                 )}
             </div>
         </header>

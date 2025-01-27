@@ -17,7 +17,8 @@ public class LiveMatchService {
 
     // Get all live matches with status "ONGOING" and match time before now
     public List<LiveMatch> getOngoingMatches() {
-        return liveMatchRepository.findByStatusAndMatchTimeBefore(LiveMatch.MatchStatus.ONGOING, LocalDateTime.now());
+        // Pass status and current time to the repository method
+        return liveMatchRepository.findByMatchTimeGreaterThanEqual( LocalDateTime.now());
     }
 
     // Save a new live match (create or update)
@@ -27,7 +28,8 @@ public class LiveMatchService {
 
     // Get all matches (irrespective of status or time)
     public List<LiveMatch> getAllMatches() {
-        return liveMatchRepository.findAll();
+
+        return liveMatchRepository.findByMatchTimeGreaterThanEqual(LocalDateTime.now());
     }
 
     // Get a specific match by ID
